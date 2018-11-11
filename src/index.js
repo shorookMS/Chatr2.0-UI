@@ -11,9 +11,11 @@ import App from "./App";
 
 // Reducers
 import authReducer from "./store/reducers/authentication";
+import errorReducer from "./store/reducers/errors";
 
 const rootReducer = combineReducers({
-  rootAuth: authReducer
+  rootAuth: authReducer,
+  rootErr: errorReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
