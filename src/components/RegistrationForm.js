@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../store/actions/";
 
 class RegistationForm extends Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class RegistationForm extends Component {
 
   submitHandler(e) {
     e.preventDefault();
-    alert("I don't work yet");
+    if (this.props.match.url.substring(1) === "login")
+      this.props.login(this.state, this.props.history);
+    else this.props.signup(this.state, this.props.history);
   }
 
   render() {
@@ -81,4 +85,14 @@ class RegistationForm extends Component {
   }
 }
 
-export default RegistationForm;
+const mapDispatchToProps = dispatch => ({
+  signup: (userData, history) =>
+    dispatch(actionCreators.signup(userData, history)),
+  login: (userData, history) =>
+    dispatch(actionCreators.login(userData, history))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(RegistationForm);
