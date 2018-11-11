@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/";
 
@@ -29,7 +29,9 @@ class RegistationForm extends Component {
   render() {
     const type = this.props.match.url.substring(1);
     console.log(this.props.errors);
-
+    if (this.props.user) {
+      return <Redirect to="/channel" />;
+    }
     return (
       <div className="card col-6 mx-auto p-0 mt-5">
         <div className="card-body">
@@ -98,7 +100,8 @@ class RegistationForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  errors: state.rootErr
+  errors: state.rootErr,
+  user: state.rootAuth.user
 });
 
 const mapDispatchToProps = dispatch => ({
