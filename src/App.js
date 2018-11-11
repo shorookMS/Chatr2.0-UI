@@ -23,7 +23,7 @@ class App extends Component {
           <Route path="/welcome" component={Welcome} />
           <Route path="/(login|signup)" component={RegistrationForm} />
           <PrivateRoute path="/private" component={SuperSecretPage} />
-          <PrivateRoute path="/channel" component={Channel} />
+          <PrivateRoute path="/channels/:channelID" component={Channel} />
           <Redirect to="/welcome" />
         </Switch>
         <Footer />

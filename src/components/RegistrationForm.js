@@ -28,7 +28,6 @@ class RegistationForm extends Component {
 
   render() {
     const type = this.props.match.url.substring(1);
-    console.log(this.props.errors);
     if (this.props.user) {
       return <Redirect to="/channel" />;
     }
@@ -87,7 +86,6 @@ class RegistationForm extends Component {
           <Link
             to={type === "login" ? "/signup" : "/login"}
             className="btn btn-small btn-link"
-            // onClick={() => (authStore.errors = [])}
           >
             {type === "login"
               ? "register an account"
