@@ -28,6 +28,8 @@ class RegistationForm extends Component {
 
   render() {
     const type = this.props.match.url.substring(1);
+    console.log(this.props.errors);
+
     return (
       <div className="card col-6 mx-auto p-0 mt-5">
         <div className="card-body">
@@ -37,11 +39,11 @@ class RegistationForm extends Component {
               : "Register an account"}
           </h5>
           <form onSubmit={this.submitHandler} noValidate>
-            {/* {authStore.errors.length > 0 && (
-            <div className="alert alert-danger" role="alert">
-              {authStore.errors}
-            </div>
-          )} */}
+            {this.props.errors.username && (
+              <div className="alert alert-danger" role="alert">
+                username : {this.props.errors.username}
+              </div>
+            )}
             <div className="form-group">
               <input
                 className="form-control"
@@ -52,6 +54,11 @@ class RegistationForm extends Component {
                 onChange={this.changeHandler}
               />
             </div>
+            {this.props.errors.password && (
+              <div className="alert alert-danger" role="alert">
+                password : {this.props.errors.password}
+              </div>
+            )}
             <div className="form-group">
               <input
                 className="form-control"
@@ -62,6 +69,11 @@ class RegistationForm extends Component {
                 onChange={this.changeHandler}
               />
             </div>
+            {this.props.errors.non_field_errors && (
+              <div className="alert alert-danger" role="alert">
+                {this.props.errors.non_field_errors}
+              </div>
+            )}
             <input
               className="btn btn-primary"
               type="submit"
@@ -85,6 +97,10 @@ class RegistationForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  errors: state.rootErr
+});
+
 const mapDispatchToProps = dispatch => ({
   signup: (userData, history) =>
     dispatch(actionCreators.signup(userData, history)),
@@ -93,6 +109,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(RegistationForm);
