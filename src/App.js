@@ -12,11 +12,9 @@ import PrivateRoute from "./components/PrivateRoute";
 import Welcome from "./components/Welcome";
 import RegistrationForm from "./components/RegistrationForm";
 import SuperSecretPage from "./components/SuperSecretPage";
+import Channel from "./components/Channel";
 
 class App extends Component {
-  componentDidMount() {
-    this.props.checkToken();
-  }
   render() {
     return (
       <div className="content-wrapper">
@@ -25,6 +23,7 @@ class App extends Component {
           <Route path="/welcome" component={Welcome} />
           <Route path="/(login|signup)" component={RegistrationForm} />
           <PrivateRoute path="/private" component={SuperSecretPage} />
+          <PrivateRoute path="/channel" component={Channel} />
           <Redirect to="/welcome" />
         </Switch>
         <Footer />
