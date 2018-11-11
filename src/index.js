@@ -14,10 +14,14 @@ import { checkForExpiredToken } from "./store/actions";
 // Reducers
 import authReducer from "./store/reducers/authentication";
 import errorReducer from "./store/reducers/errors";
+import channelReducer from "./store/reducers/channels";
+import messageReducer from "./store/reducers/messages";
 
 const rootReducer = combineReducers({
   rootAuth: authReducer,
-  rootErr: errorReducer
+  rootErr: errorReducer,
+  rootChannel: channelReducer,
+  rootMessages: messageReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
