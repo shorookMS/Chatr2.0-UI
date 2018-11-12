@@ -9,8 +9,9 @@ class NavBar extends Component {
   render() {
     return (
       <nav
-        className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+        className="navbar navbar-expand-lg navbar-dark fixed-top"
         id="mainNav"
+        style={{ background: "#750E0F" }}
       >
         <Link className="navbar-brand" to="/welcome">
           Chatr2.0

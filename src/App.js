@@ -18,7 +18,7 @@ import ChannelForm from "./components/ChannelForm";
 class App extends Component {
   render() {
     return (
-      <div className="content-wrapper">
+      <div className="content-wrapper" style={{ background: "#F1F0E2" }}>
         <NavBar />
         <Switch>
           <Route path="/welcome" component={Welcome} />

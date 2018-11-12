@@ -20,26 +20,26 @@ class MessageForm extends Component {
   submitHandler(e) {
     e.preventDefault();
     this.props.post_message(this.props.channelID, this.state);
+    this.setState({ message: "" });
   }
   render() {
     return (
-      <div className="card mx-auto p-0 mt-5">
-        <div className="card-body">
-          <form onSubmit={this.submitHandler} noValidate>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Message..."
-                name="message"
-                required
-                onChange={this.changeHandler}
-              />
-            </div>
+      <div className="container my-5 mb-5 ">
+        <form className="form-inline" onSubmit={this.submitHandler} noValidate>
+          <div className="form-row col  my-2">
+            <input
+              className="form-control col"
+              type="text"
+              placeholder="Message..."
+              name="message"
+              required
+              value={this.state.message}
+              onChange={this.changeHandler}
+            />
+          </div>
 
-            <input className="btn btn-primary" type="submit" value="Send" />
-          </form>
-        </div>
+          <input className="btn btn-primary" type="submit" value="Send" />
+        </form>
       </div>
     );
   }

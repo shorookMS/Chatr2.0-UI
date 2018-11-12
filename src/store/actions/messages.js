@@ -22,8 +22,8 @@ export const post_message = (channelID, message) => {
     instance
       .post(`channels/${channelID}/send/`, message)
       .then(res => res.data)
-      .then(channels =>
-        dispatch({ type: actionTypes.POST_MESSAGE, payload: message })
+      .then(message_obj =>
+        dispatch({ type: actionTypes.POST_MESSAGE, payload: message_obj })
       )
       .catch(err => console.error(err.response.data));
   };
