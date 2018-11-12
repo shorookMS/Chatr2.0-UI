@@ -1,25 +1,35 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Message from "./Message";
+import MessageForm from "./MessageForm";
 // Actions
 import * as actionCreators from "../store/actions";
 
 class Channel extends Component {
   componentDidMount() {
-    this.props.fetchMessages(this.props.match.params.channelID);
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.messages === this.props.messages)
+    if (this.props.match.params.channelID)
       this.props.fetchMessages(this.props.match.params.channelID);
   }
+  componentDidUpdate(prevProps) {
+    this.props.fetchMessages(this.props.match.params.channelID);
+  }
   render() {
-    const messageList = this.props.messages.map(msg => (
-      <Message key={msg.id} message={msg} />
-    ));
+    let messageList = [];
+    if (this.props.match.params.channelID)
+      messageList = this.props.messages.map(msg => (
+        <Message key={msg.id + msg.username} message={msg} />
+      ));
     return (
-      <div>
-        <h1>Messages</h1>
-        {messageList}
+      <div className="container shadow-lg p-3 mb-5 bg-white rounded">
+        <div
+          className="container p-3  "
+          style={{ overflow: "auto", height: "600px" }}
+        >
+          {messageList}
+        </div>
+        {this.props.match.params.channelID && (
+          <MessageForm channelID={this.props.match.params.channelID} />
+        )}
       </div>
     );
   }
