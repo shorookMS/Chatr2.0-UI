@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../store/actions/";
 
-class ChannelForm extends Component {
+class MessageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      image_url: ""
+      message: ""
     };
 
     this.changeHandler = this.changeHandler.bind(this);
@@ -21,34 +19,25 @@ class ChannelForm extends Component {
 
   submitHandler(e) {
     e.preventDefault();
-    this.props.createChannel(this.state);
+    this.props.post_message(this.props.channelID, this.state);
   }
   render() {
     return (
-      <div className="card col-6 mx-auto p-0 mt-5">
+      <div className="card mx-auto p-0 mt-5">
         <div className="card-body">
-          <h5 className="card-title mb-4">Create a channel</h5>
           <form onSubmit={this.submitHandler} noValidate>
             <div className="form-group">
               <input
                 className="form-control"
                 type="text"
-                placeholder="Channel Name"
-                name="name"
+                placeholder="Message..."
+                name="message"
                 required
                 onChange={this.changeHandler}
               />
             </div>
-            <div className="form-group">
-              <input
-                className="form-control"
-                type="text"
-                placeholder="Image URL"
-                name="image_url"
-                onChange={this.changeHandler}
-              />
-            </div>
-            <input className="btn btn-primary" type="submit" value="Submit" />
+
+            <input className="btn btn-primary" type="submit" value="Send" />
           </form>
         </div>
       </div>
@@ -56,11 +45,16 @@ class ChannelForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.rootAuth.user
+});
+
 const mapDispatchToProps = dispatch => ({
-  createChannel: channel => dispatch(actionCreators.create_channel(channel))
+  post_message: (channelID, message) =>
+    dispatch(actionCreators.post_message(channelID, message))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(ChannelForm);
+)(MessageForm);

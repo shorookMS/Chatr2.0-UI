@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Message from "./Message";
+import MessageForm from "./MessageForm";
 // Actions
 import * as actionCreators from "../store/actions";
 
@@ -20,6 +21,7 @@ class Channel extends Component {
       <div>
         <h1>Messages</h1>
         {messageList}
+        <MessageForm channelID={this.props.match.params.channelID} />
       </div>
     );
   }
