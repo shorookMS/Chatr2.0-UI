@@ -23,7 +23,7 @@ class Channel extends Component {
       <div className="container shadow-lg p-3 mb-5 bg-white rounded">
         <div
           className="container p-3  "
-          style={{ overflow: "auto", height: "600px" }}
+          style={{ overflowY: "auto", width: "auto", height: "600px" }}
         >
           {messageList}
         </div>

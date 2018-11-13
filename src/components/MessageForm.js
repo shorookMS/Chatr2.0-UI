@@ -24,7 +24,7 @@ class MessageForm extends Component {
   }
   render() {
     return (
-      <div className="container my-5 mb-5 ">
+      <div className="container my-5 mb-5 " style={{ width: "auto" }}>
         <form className="form-inline" onSubmit={this.submitHandler} noValidate>
           <div className="form-row col  my-2">
             <input
