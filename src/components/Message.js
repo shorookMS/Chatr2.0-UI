@@ -15,7 +15,7 @@ class Message extends Component {
         <div className=" mb-4 flaot-right" style={{ color: "#3E4E59" }}>
           <h4 className="float-right">
             <span
-              className="badge badge-pill badge-light p-2 mr-2 "
+              className="badge badge-pill badge-light  text-uppercase p-2 mr-2 "
               style={{
                 background: `${userFormatter}`,
                 color: "white"
@@ -49,7 +49,7 @@ class Message extends Component {
         <div className="row mb-4 " style={{ color: "#3E4E59" }}>
           <h4>
             <span
-              className="badge badge-pill badge-light  p-2 mr-2 "
+              className="badge badge-pill badge-light text-uppercase p-2 mr-2 "
               style={{
                 background: `${userFormatter}`,
                 color: "white"
