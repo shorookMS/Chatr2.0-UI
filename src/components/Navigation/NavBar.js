@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+// Fontawesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import SideNav from "./SideNav";
@@ -27,6 +32,12 @@ class NavBar extends Component {
         >
           <span className="navbar-toggler-icon" />
         </button>
+        {this.props.user && (
+          <Link to="/channel/create">
+            Channels
+            <FontAwesomeIcon icon={faPlusCircle} />
+          </Link>
+        )}
         <div className="collapse navbar-collapse" id="navbarResponsive">
           <SideNav />
           <AuthButton />
@@ -36,4 +47,8 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = state => ({
+  user: state.rootAuth.user
+});
+
+export default withRouter(connect(mapStateToProps)(NavBar));

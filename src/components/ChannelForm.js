@@ -20,7 +20,7 @@ class ChannelForm extends Component {
 
   submitHandler(e) {
     e.preventDefault();
-    this.props.createChannel(this.state);
+    this.props.createChannel(this.state, this.props.history);
   }
   render() {
     return (
@@ -56,7 +56,8 @@ class ChannelForm extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createChannel: channel => dispatch(actionCreators.create_channel(channel))
+  createChannel: (channel, history) =>
+    dispatch(actionCreators.create_channel(channel, history))
 });
 
 export default connect(

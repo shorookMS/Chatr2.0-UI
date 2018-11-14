@@ -4,6 +4,9 @@ import * as actionTypes from "./actionTypes";
 const instance = axios.create({
   baseURL: "https://api-chatr.herokuapp.com/"
 });
+export const setLoading = () => ({
+  type: actionTypes.SET_MESSAGES_LOADING
+});
 
 export const fetch_messages = channelID => {
   return dispatch => {
