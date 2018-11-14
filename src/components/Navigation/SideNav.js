@@ -1,15 +1,12 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/";
+import Loading from "../Loading";
 
 // Fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft,
-  faAngleRight,
-  faPlusCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import ChannelNavLink from "./ChannelNavLink";
@@ -20,8 +17,16 @@ class SideNav extends React.Component {
     this.state = { collapsed: false };
   }
   componentDidMount() {
-    if (this.props.user) this.props.fetchChannels();
+    if (this.props.user) {
+      this.props.fetchChannels();
+    }
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.channels.length !== prevProps.channels.length) {
+      this.props.fetchChannels();
+    }
+  }
+
   render() {
     const channelLinks = this.props.channels.map(channel => (
       <ChannelNavLink key={channel.name} channel={channel} />
@@ -33,15 +38,12 @@ class SideNav extends React.Component {
           id="exampleAccordion"
           style={{ overflow: "scroll" }}
         >
-          <li className="nav-item" data-toggle="tooltip" data-placement="right">
-            {this.props.user && (
-              <Link className="nav-link heading" to="/channel/create">
-                <span className="nav-link-text mr-2">Channels</span>
-                <FontAwesomeIcon icon={faPlusCircle} />
-              </Link>
-            )}
-          </li>
-          {this.props.user && channelLinks}
+          <li
+            className="nav-item"
+            data-toggle="tooltip"
+            data-placement="right"
+          />
+          {this.props.loadingCh ? <Loading /> : channelLinks}
         </ul>
         <ul className="navbar-nav sidenav-toggler">
           <li className="nav-item">
@@ -67,11 +69,13 @@ class SideNav extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.rootAuth.user,
-  channels: state.rootChannel.channels
+  channels: state.rootChannel.channels,
+  loadingCh: state.rootChannel.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchChannels: () => dispatch(actionCreators.fetch_channels())
+  fetchChannels: () => dispatch(actionCreators.fetch_channels()),
+  changeLoading: () => dispatch(actionCreators.setChLoading())
 });
 
 export default withRouter(

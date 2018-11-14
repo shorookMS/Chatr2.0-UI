@@ -10,21 +10,24 @@ import * as actionCreators from "../store/actions";
 class Channel extends Component {
   componentDidMount() {
     this.interval = setInterval(() => {
-      if (this.props.match.params.channelID)
+      if (this.props.match.params.channelID !== undefined)
         this.props.fetchMessages(this.props.match.params.channelID);
     }, 5000);
   }
+
   componentDidUpdate(prevProps) {
-    if (
-      this.props.match.params.channelID !== prevProps.match.params.channelID
-    ) {
-      this.props.changeLoading();
-      this.props.fetchMessages(this.props.match.params.channelID);
-    } else {
-      clearInterval(this.interval);
-      this.interval = setInterval(() => {
+    if (this.props.match.params.channelID !== undefined) {
+      if (
+        this.props.match.params.channelID !== prevProps.match.params.channelID
+      ) {
+        this.props.changeLoading();
         this.props.fetchMessages(this.props.match.params.channelID);
-      }, 5000);
+      } else {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+          this.props.fetchMessages(this.props.match.params.channelID);
+        }, 5000);
+      }
     }
   }
   componentWillUnmount() {
@@ -58,7 +61,8 @@ class Channel extends Component {
 
 const mapStateToProps = state => ({
   messages: state.rootMessages.messages,
-  loading: state.rootMessages.loading
+  loading: state.rootMessages.loading,
+  user: state.rootAuth.user
 });
 
 const mapDispatchToProps = dispatch => {
